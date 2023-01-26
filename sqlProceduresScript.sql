@@ -306,3 +306,42 @@ BEGIN
 	where dbo.AspNetUsers.DeletedAt is null
 END
 GO
+
+CREATE OR ALTER PROC dbo.InsertTag
+	@TypeId int,
+	@Name nvarchar(50),
+	@nameEng nvarchar(50)
+AS
+BEGIN
+	INSERT INTO Tag (Guid,CreatedAt,TypeId,Name,NameEng) values(NEWID(),GETDATE(),@TypeId,@Name,@nameEng)
+END
+GO
+
+CREATE OR ALTER PROC dbo.DeleteTag
+	@id int
+AS
+BEGIN
+	DELETE 
+	FROM Tag
+	WHERE @id = Tag.Id
+END
+GO
+
+CREATE OR ALTER PROC dbo.GeTagTypes
+AS
+BEGIN
+SELECT
+*
+FROM TagType
+END
+GO
+
+CREATE OR ALTER PROC dbo.GetTagCount
+AS
+BEGIN
+SELECT t.Id,t.Name,COUNT(ta.TagId) as Total from Tag as t
+left outer join TaggedApartment ta on ta.TagId = t.Id
+GROUP BY t.Id,t.Name, ta.TagId
+ORDER BY Total desc
+END
+GO
