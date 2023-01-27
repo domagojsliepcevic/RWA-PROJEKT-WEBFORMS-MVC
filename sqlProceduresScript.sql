@@ -327,7 +327,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROC dbo.GeTagTypes
+CREATE OR ALTER PROC dbo.GetTagTypes
 AS
 BEGIN
 SELECT
@@ -343,5 +343,46 @@ SELECT t.Id,t.Name,COUNT(ta.TagId) as Total from Tag as t
 left outer join TaggedApartment ta on ta.TagId = t.Id
 GROUP BY t.Id,t.Name, ta.TagId
 ORDER BY Total desc
+END
+GO
+
+CREATE OR ALTER proc dbo.AuthUser
+	@email nvarchar(70),
+	@PasswordHash nvarchar(max)
+AS
+BEGIN
+	SELECT
+	* 
+	FROM AspNetUsers 
+	WHERE Email=@email and PasswordHash=@PasswordHash and DeletedAt is null
+END
+GO
+
+CREATE OR ALTER PROC dbo.AuthAdmin
+	@email nvarchar(70),
+	@PasswordHash nvarchar(max)
+AS
+	BEGIN
+	SELECT
+	* 
+	FROM AspNetUsers 
+	inner join AspNetUserRoles on AspNetUserRoles.UserId = AspNetUsers.Id
+	WHERE Email=@email and PasswordHash=@PasswordHash and AspNetUserRoles.RoleId = 1
+
+END
+GO
+
+CREATE OR ALTER PROC dbo.CreateUser
+	@Email nvarchar(100),
+	@Passwordhash nvarchar(max),
+	@PhoneNumber nvarchar(100),
+	@UserName nvarchar(250),
+	@Address nvarchar(1000)
+AS
+BEGIN
+IF not exists
+(SELECT*FROM AspNetUsers WHERE Email=@Email and PasswordHash = @Passwordhash)
+INSERT INTO AspNetUsers(Guid,CreatedAt,Email,EmailConfirmed,PasswordHash,PhoneNumber,PhoneNumberConfirmed,LockoutEnabled,AccessFailedCount,UserName,Address)
+VALUES(NEWID(),GETDATE(),@Email,1,@Passwordhash,@PhoneNumber,1,0,0,@UserName,@Address)
 END
 GO

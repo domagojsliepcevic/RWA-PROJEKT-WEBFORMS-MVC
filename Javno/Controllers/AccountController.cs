@@ -31,7 +31,7 @@ namespace Javno.Controllers
             }
             else
             {
-                ViewBag.Notification = "Error";
+                ViewBag.Notification = "Invalid email or password";
             }
 
             return View();
@@ -46,6 +46,13 @@ namespace Javno.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Registration(User user)
         {
+            if (ModelState.IsValid)
+            {
+                _userRepository.CreateUser(user);
+                Session["Email"] = user.Email;
+                TempData["AlertMsg"] = "Uspjesna registracija";
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 

@@ -11,6 +11,8 @@ namespace rwaLib.Utils
     {
         public static string HashPassword(string input)
         {
+            if(input == null)
+                return null;
             var bytes = Encoding.UTF8.GetBytes(input);
             using (var hash = SHA512.Create())
             {

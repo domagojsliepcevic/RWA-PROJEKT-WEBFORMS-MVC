@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using rwaLib.Resources;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
@@ -22,7 +21,8 @@ namespace rwaLib.Models
         public DateTime CreatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Language), ErrorMessageResourceName = "RequiredField")]
+        [Required(ErrorMessage = "The Email field is required.")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
         public virtual string Email { get; set; }
@@ -30,14 +30,15 @@ namespace rwaLib.Models
 
         public bool EmailConfirmed { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Language), ErrorMessageResourceName = "RequiredField")]
+        [Required(ErrorMessage = "Please input password")]
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
-
         public string PasswordHash { get; set; }
+
         public string SecurityStamp { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Language), ErrorMessageResourceName = "RequiredField")]
+        [Required(ErrorMessage = "Please input your phone number")]
+        [Phone(ErrorMessage ="Invalid phone number")]
         [Display(Name = "Phone-Number")]
         public string PhoneNumber { get; set; }
 
@@ -47,11 +48,11 @@ namespace rwaLib.Models
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Language), ErrorMessageResourceName = "RequiredField")]
+        [Required(ErrorMessage = "Please input UserName")]
         [Display(Name = "UserName")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Language), ErrorMessageResourceName = "RequiredField")]
+        [Required(ErrorMessage = "Please input address")]
         [Display(Name = "Address")]
         public string Address { get; set; }
 

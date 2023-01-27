@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-
+using rwaLib.Utils;
 
 namespace rwaLib.DAL
 {
@@ -21,6 +21,21 @@ namespace rwaLib.DAL
         public User AuthUser(string email, string password)
         {
             var tblUser = SqlHelper.ExecuteDataset(_connectionString, nameof(AuthUser), email, password).Tables[0];
+            if (tblUser.Rows.Count == 0) return null;
+            DataRow row = tblUser.Rows[0];
+            return new User
+            {
+                Id = row[nameof(User.Id)].ToString(),
+                FirstName = row[nameof(User.FirstName)].ToString(),
+                LastName = row[nameof(User.LastName)].ToString(),
+                Address = row[nameof(User.Address)].ToString(),
+                Email = row[nameof(User.Email)].ToString()
+            };
+        }
+
+        public User AuthAdmin(string email, string password)
+        {
+            var tblUser = SqlHelper.ExecuteDataset(_connectionString, nameof(AuthAdmin), email, password).Tables[0];
             if (tblUser.Rows.Count == 0) return null;
             DataRow row = tblUser.Rows[0];
             return new User
@@ -58,6 +73,11 @@ namespace rwaLib.DAL
             }
             return users;
             
+        }
+
+        public void CreateUser(User user)
+        {
+            SqlHelper.ExecuteNonQuery(_connectionString, nameof(CreateUser), user.Email, Cryptography.HashPassword(user.PasswordHash), user.PhoneNumber, user.UserName, user.Address);
         }
 
     }

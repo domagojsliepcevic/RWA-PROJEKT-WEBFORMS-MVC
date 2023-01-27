@@ -38,7 +38,7 @@ namespace Admin
         private bool ValidateUser(string userName, string passWord)
         {
             string hashedPassword = Cryptography.HashPassword(passWord);
-            User user = _userRepository.AuthUser(userName, hashedPassword);
+            User user = _userRepository.AuthAdmin(userName, hashedPassword);
             if (user != null)
             {
                 Session["user"] = user;
