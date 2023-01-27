@@ -63,6 +63,8 @@
     <Compile Include="Models\ApartmentPicture.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\SearchModel.cs" />
+    <Compile Include="Models\SearchResultModel.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TagType.cs" />

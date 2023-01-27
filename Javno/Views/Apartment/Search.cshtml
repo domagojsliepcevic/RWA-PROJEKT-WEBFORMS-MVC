@@ -1,0 +1,54 @@
+﻿@model rwaLib.Models.SearchModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Search", "Apartment", "GET"))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.FilterRooms)
+        @Html.TextBoxFor(x => x.FilterRooms,
+        new { @class = "form-control", @type = "number" })
+        @Html.LabelFor(x => x.FilterAdults)
+        @Html.TextBoxFor(x => x.FilterAdults,
+        new { @class = "form-control", @type = "number" })
+        @Html.LabelFor(x => x.FilterChildren)
+        @Html.TextBoxFor(x => x.FilterChildren,
+        new { @class = "form-control", @type = "number" })
+        @Html.DropDownListFor(x => x.FilterCity,
+    new SelectList(Model.CityList, "Id", "Name"))
+        @Html.DropDownListFor(x => x.Order,
+    new SelectList(Model.OrderList, "Id", "Name"))
+
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Go!</button>
+    </div>
+}
+
+
+@for (int i = 0; i < Model.SearchResult.Count; i++)
+{
+    <div>@Model.SearchResult[i].Name</div>
+    <div>@Model.SearchResult[i].StarRating</div>
+    <div>
+        <img src="/Apartment/Picture?Path=@Model.SearchResult[i].RepresentativePicturePath" />
+    </div>
+    <ul>
+        <li>@Model.SearchResult[i].CityName</li>
+        <li>@Model.SearchResult[i].BeachDistance</li>
+        <li>@Model.SearchResult[i].TotalRooms</li>
+        <li>@Model.SearchResult[i].MaxAdults</li>
+        <li>@Model.SearchResult[i].MaxChildren</li>
+    </ul>
+    <div>@Model.SearchResult[i].Price</div>
+
+    @Html.ActionLink("Više...", "Details",
+    new
+    {
+        id = Model.SearchResult[i].Id
+    },
+    new { @class = "btn btn-primary" })
+}

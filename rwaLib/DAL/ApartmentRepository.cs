@@ -296,5 +296,54 @@ namespace rwaLib.DAL
             commandParameters.ToArray());
         }
 
+        public List<SearchResultModel> Search(
+          int? rooms,
+          int? adults,
+          int? children,
+          int? destination,
+          int? order)
+        {
+            var commandParameters = new List<SqlParameter>();
+            commandParameters.Add(new SqlParameter("@rooms",rooms));
+            commandParameters.Add(new SqlParameter("@adults",adults));
+            commandParameters.Add(new SqlParameter("@children",children));
+            commandParameters.Add(new SqlParameter("@destination",destination));
+            commandParameters.Add(new SqlParameter("@order",order));
+            
+  
+            var ds = SqlHelper.ExecuteDataset(
+              _connectionString,
+              CommandType.StoredProcedure,
+              "dbo.SearchApartments",
+              commandParameters.ToArray());
+
+                var resList = new List<SearchResultModel>();
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    var ap = new SearchResultModel();
+                    ap.Id = Convert.ToInt32(row["Id"]);
+                    ap.Name = row["Name"].ToString();
+                    if(!Convert.IsDBNull(row["StarRating"]))
+                    { 
+                        ap.StarRating = Convert.ToInt32(row["StarRating"]); 
+                     }
+                
+                    ap.CityName = row["CityName"].ToString();
+                    ap.BeachDistance = Convert.ToInt32(row["BeachDistance"]);
+                    ap.TotalRooms = Convert.ToInt32(row["TotalRooms"]);
+                    ap.MaxAdults = Convert.ToInt32(row["MaxAdults"]);
+                    ap.MaxChildren = Convert.ToInt32(row["MaxChildren"]);
+                    ap.Price = Convert.ToInt32(row["Price"]);
+                    ap.RepresentativePicturePath = row["RepresentativePicturePath"].ToString();
+
+
+                
+
+                resList.Add(ap);
+                }
+
+                return resList;
+        }
+
     }
 }
