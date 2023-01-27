@@ -6,7 +6,7 @@ using System.Configuration;
 using Microsoft.ApplicationBlocks.Data;
 using System.Data;
 using System.Data.SqlClient;
-using rwa.Models;
+using rwaLib.Models;
 
 namespace rwaLib.DAL
 {

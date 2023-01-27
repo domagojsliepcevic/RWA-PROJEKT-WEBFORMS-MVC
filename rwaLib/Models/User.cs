@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 
 
-namespace rwa.Models
+namespace rwaLib.Models
 {
     public class User : IUser
     {
@@ -15,6 +15,7 @@ namespace rwa.Models
         {
             Id = Guid.NewGuid().ToString();
         }
+
         public string Id { get; set; }
         public Guid Guid { get; set; }
 

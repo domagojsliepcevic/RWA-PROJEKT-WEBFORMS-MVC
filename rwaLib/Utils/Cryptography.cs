@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace rwa.Utils
+namespace rwaLib.Utils
 {
     public static class Cryptography
     {
