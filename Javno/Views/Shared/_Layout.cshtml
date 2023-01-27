@@ -5,35 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/3903c9d7fd.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/fa15108486.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/fa15108486.css" crossorigin="anonymous">
 
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div>
         <ul class="menu">
-            <li class="menu_list">
-                <span class="front fas fa-home"></span>
-                <a href="#" class="side">home</a>
-            </li>
-            <li class="menu_list">
-                <span class="front fas fa-info"></span>
-                <a href="#" class="side">about</a>
-            </li>
-            <li class="menu_list">
-                <span class="front fas fa-briefcase"></span>
-                <a href="#" class="side">projects</a>
-            </li>
-            <li class="menu_list">
-                <span class="front fas fa-paper-plane"></span>
-                <a href="#" class="side">contact</a>
-            </li>
+
+            @if (Session["Email"] != null)
+            {
+
+                <li class="menu_list">
+                    <span class="front fas fa-home"></span>
+                    <a href="#" class="side">home</a>
+                </li>
+                <li class="menu_list">
+                    <span class="front fa-solid fa-magnifying-glass"></span>
+                    <a href="#" class="side">Search</a>
+                </li>
+                <li class="menu_list">
+                    <span class="front fas fa-info"></span>
+                    <a href="#" class="side">About</a>
+                </li>
+                <li class="menu_list">
+                    <span class="front fas fa-regular fa-envelope"></span>
+                    <a href="#" class="side">Contact</a>
+                </li>
+                <li class="menu_list">
+                    <span class="front fa-solid fa-arrow-right-from-bracket"></span>
+                    <a href="@Url.Action("Logout", "Account")" class="side">LogOut</a>
+                </li>
+
+            }
+            else
+            {
+                <li class="menu_list">
+                    <span class="front fas fa-home"></span>
+                    <a href="#" class="side">home</a>
+                </li>
+                <li class="menu_list">
+                    <span class="front fa-solid fa-magnifying-glass"></span>
+                    <a href="#" class="side">Search</a>
+                </li>
+                <li class="menu_list">
+                    <span class="front fas fa-info"></span>
+                    <a href="#" class="side">About</a>
+                </li>
+                <li class="menu_list">
+                    <span class="front fas fa-regular fa-envelope"></span>
+                    <a href="#" class="side">Contact</a>
+                </li>
+                <li class="menu_list">
+                    <span class="front fa-regular fa-registered"></span>
+                    <a href="@Url.Action("Registration", "Account")" class="side">Register</a>
+                </li>
+                <li class="menu_list">
+                    <span class="front fa-solid fa-arrow-right-to-bracket"></span>
+                    <a href="@Url.Action("LogIn", "Account")" class="side">LogIn</a>
+                </li>
+            }
         </ul>
         <div class="container body-content">
 
             @RenderBody()
-            <hr />
+
 
         </div>
         <div class="footer">
@@ -47,7 +84,7 @@
             </div>
         </div>
     </div>
-       
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
