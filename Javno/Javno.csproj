@@ -362,6 +362,7 @@
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Apartment\Search.cshtml" />
+    <Content Include="Views\Apartment\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
