@@ -1,0 +1,39 @@
+﻿ol, ul {
+    padding-left: 0rem;
+}
+
+
+.well-searchbox {
+    min-height: 20px;
+    min-width: 400px;
+    padding: 19px;
+
+    top: 90px;
+    right: 100px;
+    background: rgb(18 30 90 / 93%);
+    margin-bottom: 20px;
+    margin-right: 50px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+    .well-searchbox label {
+        color: #fff;
+    }
+
+.form-group{
+    padding-right:10px;
+}
+
+span.stars, span.stars span {
+    display: block;
+    background: url(stars.png) 0 -24px repeat-x;
+    width: 120px;
+    height: 24px;
+}
+
+    span.stars span {
+        background-position: 0 0;
+    }
