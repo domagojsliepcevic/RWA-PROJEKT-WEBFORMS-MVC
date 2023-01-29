@@ -7,7 +7,7 @@
     <link href="~/Content/Site.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/fa15108486.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://kit.fontawesome.com/fa15108486.css" crossorigin="anonymous">
-
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -35,7 +35,7 @@
                 </li>
                 <li class="menu_list">
                     <span class="front fa-solid fa-arrow-right-from-bracket"></span>
-                    <a href="@Url.Action("Logout", "Account")" class="side">LogOut</a>
+                    <a  id="openModal" class="side">LogOut</a>
                 </li>
 
             }
@@ -71,7 +71,25 @@
 
             @RenderBody()
 
+            <div id="myModal" class="modal" tabindex="-1" role="dialog" style="display: none; flex-direction: column; ">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Sign out?</h5>
 
+                            <span aria-hidden="true">&times;</span>
+
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to log out?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnSubmit"> Log out</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="footer">
             <div id="button"></div>
@@ -86,6 +104,7 @@
     </div>
 
 
+     <script src="~/Scripts/LogoutModal.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
