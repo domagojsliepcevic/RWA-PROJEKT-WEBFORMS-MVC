@@ -380,7 +380,7 @@ namespace rwaLib.DAL
         public List<Tag> GetPublicApartmentTags(int id)
         {
             var commandParameters = new List<SqlParameter>();
-            commandParameters.Add(new SqlParameter("@id", id));
+            commandParameters.Add(new SqlParameter("@apartmentId", id));
             var ds = SqlHelper.ExecuteDataset(
             _connectionString,
             CommandType.StoredProcedure,
@@ -403,7 +403,7 @@ namespace rwaLib.DAL
         public List<ApartmentPicture> GetPublicApartmentPictures(int id)
         {
             var commandParameters = new List<SqlParameter>();
-            commandParameters.Add(new SqlParameter("@id", id));
+            commandParameters.Add(new SqlParameter("@apartmentId", id));
             var ds = SqlHelper.ExecuteDataset(
             _connectionString,
             CommandType.StoredProcedure,
