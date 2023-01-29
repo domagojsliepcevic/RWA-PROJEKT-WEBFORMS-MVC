@@ -1,0 +1,6 @@
+﻿.text-center {
+    text-align: center !important;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+}

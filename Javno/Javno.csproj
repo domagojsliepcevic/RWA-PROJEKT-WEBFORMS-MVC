@@ -298,7 +298,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Home.css" />
     <Content Include="Content\Login.css" />
+    <Content Include="Content\logo.png" />
     <Content Include="Content\Search.css" />
     <Content Include="Content\stars.png" />
     <Content Include="favicon.ico" />
