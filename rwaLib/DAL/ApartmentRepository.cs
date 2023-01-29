@@ -303,6 +303,14 @@ namespace rwaLib.DAL
           int? destination,
           int? order)
         {
+            if (destination == 0)
+            {
+                destination = null;
+            }
+            if(order == 0)
+            { 
+                order = null; 
+            }
             var commandParameters = new List<SqlParameter>();
             commandParameters.Add(new SqlParameter("@rooms",rooms));
             commandParameters.Add(new SqlParameter("@adults",adults));

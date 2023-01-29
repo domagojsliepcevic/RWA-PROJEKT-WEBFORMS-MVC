@@ -17,6 +17,9 @@ namespace Javno.Controllers
 
         public ActionResult Search(SearchModel model)
         {
+
+            //HttpCookie filter = new HttpCookie("filter");
+
             if (model == null)
             {
                 model = new SearchModel();
@@ -30,9 +33,14 @@ namespace Javno.Controllers
                 model.FilterChildren,
                 model.FilterCity,
                 model.Order);
+
+   
             }
+
             model.CityList = _cityRepository.GetCities();
             model.OrderList = _orderRepository.GetOrders();
+
+
             return View(model);
         }
 
