@@ -56,6 +56,13 @@ namespace Javno.Controllers
             return new FilePathResult(picturePath, mimeType);
         }
 
+        public ActionResult Details(int id)
+        {
+            var model = _apartmentRepository.GetPublicApartment(id);
+            model.Tags = _apartmentRepository.GetPublicApartmentTags(id);
+            model.Pictures = _apartmentRepository.GetPublicApartmentPictures(id);
+            return View(model);
+        }
 
     }
 }

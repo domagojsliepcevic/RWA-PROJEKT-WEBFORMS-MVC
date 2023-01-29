@@ -442,4 +442,53 @@ AS
         END
 GO
 
-Search?FilterRooms=5&FilterAdults=&FilterChildren=&FilterCity=0&Order=0
+CREATE OR ALTER PROCEDURE dbo.GetPublicApartment
+	@id int = null
+AS
+
+	SELECT 
+		a.Id,
+		a.[Name],
+		StarRating = (
+			SELECT avg(Stars) 
+			FROM ApartmentReview ar 
+			WHERE ar.ApartmentId = a.Id),
+		CityName = c.[Name],
+		BeachDistance,
+		TotalRooms,
+		MaxAdults,
+		MaxChildren,
+		OwnerName = ao.[Name]
+	FROM 
+		dbo.Apartment a
+		LEFT JOIN dbo.ApartmentOwner ao ON ao.Id = a.OwnerId
+		LEFT JOIN dbo.City c ON c.Id = a.CityId
+	WHERE a.Id = @id and a.DeletedAt is null
+GO
+
+CREATE OR ALTER PROCEDURE dbo.GetPublicApartmentTags
+	@apartmentId int = null
+AS
+
+	SELECT 
+	t.[Name] 
+	FROM dbo.TaggedApartment as ta
+	inner join dbo.Apartment as a on a.Id=ta.ApartmentId
+	inner join dbo.Tag as t on t.Id=ta.TagId
+	WHERE ta.ApartmentId= @apartmentId and a.DeletedAt is null
+GO
+
+CREATE OR ALTER PROCEDURE dbo.GetPublicApartmentPictures
+	@apartmentId int = null
+AS
+
+	SELECT 
+		ap.Id,
+		ap.[Name],
+		ap.[Path],
+		ap.IsRepresentative
+	FROM 
+		dbo.Apartment a
+		JOIN dbo.ApartmentPicture ap ON ap.ApartmentId = a.Id
+	WHERE a.Id = @apartmentId and a.DeletedAt is null
+GO

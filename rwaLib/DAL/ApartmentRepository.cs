@@ -7,6 +7,7 @@ using Microsoft.ApplicationBlocks.Data;
 using System.Data;
 using System.Data.SqlClient;
 using rwaLib.Models;
+using rwaLib.Models.ViewModels;
 
 namespace rwaLib.DAL
 {
@@ -347,11 +348,82 @@ namespace rwaLib.DAL
 
                 
 
-                resList.Add(ap);
-                }
+                    resList.Add(ap);
+                    }
 
-                return resList;
+                    return resList;
+                }
+        public PublicApartment GetPublicApartment(int id)
+        {
+            var commandParameters = new List<SqlParameter>();
+            commandParameters.Add(new SqlParameter("@id", id));
+            var ds = SqlHelper.ExecuteDataset(
+            _connectionString,
+            CommandType.StoredProcedure,
+            "dbo.GetPublicApartment",
+            commandParameters.ToArray());
+            var row = ds.Tables[0].Rows[0];
+            var ap = new PublicApartment();
+            ap.Id = Convert.ToInt32(row["ID"]);
+            ap.Name = row["Name"].ToString();
+            ap.StarRating = row["StarRating"] != DBNull.Value ? (int?)Convert.ToInt32(row["StarRating"]) : null;
+            ap.CityName = row["CityName"]?.ToString();
+            ap.OwnerName = row["OwnerName"].ToString();
+            ap.BeachDistance = row["BeachDistance"] != DBNull.Value ? (int?)Convert.ToInt32(row["BeachDistance"]) : null;
+            ap.TotalRooms = row["TotalRooms"] != DBNull.Value ? (int?)Convert.ToInt32(row["TotalRooms"]) : null;
+            ap.MaxAdults = row["MaxAdults"] != DBNull.Value ? (int?)Convert.ToInt32(row["MaxAdults"]) : null;
+            ap.MaxChildren = row["MaxChildren"] != DBNull.Value ? (int?)Convert.ToInt32(row["MaxChildren"]) : null;
+            ap.TotalRooms = row["TotalRooms"] != DBNull.Value ?(int?)Convert.ToInt32(row["TotalRooms"]) :null;
+          
+            return ap;
+        }
+        public List<Tag> GetPublicApartmentTags(int id)
+        {
+            var commandParameters = new List<SqlParameter>();
+            commandParameters.Add(new SqlParameter("@id", id));
+            var ds = SqlHelper.ExecuteDataset(
+            _connectionString,
+            CommandType.StoredProcedure,
+            "dbo.GetPublicApartmentTags",
+            commandParameters.ToArray());
+
+            var tags = new List<Tag>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                tags.Add(new Tag
+                {
+                  
+                    Name = row["Name"].ToString(),
+                   
+                });
+            }
+            return tags;
         }
 
+        public List<ApartmentPicture> GetPublicApartmentPictures(int id)
+        {
+            var commandParameters = new List<SqlParameter>();
+            commandParameters.Add(new SqlParameter("@id", id));
+            var ds = SqlHelper.ExecuteDataset(
+            _connectionString,
+            CommandType.StoredProcedure,
+            "dbo.GetPublicApartmentPictures",
+            commandParameters.ToArray());
+
+            var pictures = new List<ApartmentPicture>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                pictures.Add(new ApartmentPicture
+                {
+
+                    Id = Convert.ToInt32(row["Id"]),
+                    Path = row["Path"].ToString(),
+                    Name = row["Name"].ToString(),
+                    IsRepresentative = bool.Parse(row["IsRepresentative"].ToString())
+
+                });
+            }
+            return pictures;
+        }
     }
 }
