@@ -195,9 +195,9 @@ AS
 	WHEN NOT MATCHED BY TARGET THEN
 		INSERT (ApartmentId, TagId)
 		VALUES (@id, [Key])
-	WHEN NOT MATCHED BY SOURCE THEN
+	WHEN NOT MATCHED BY SOURCE AND tgt.ApartmentId = @id THEN
 		DELETE;
-
+		--AKo ide samo WHEN NOT MATCHED BY SOURCE onda briše sve zapise osim dodanih
 	MERGE dbo.ApartmentPicture AS tgt
 	USING @pictures AS src
 	ON (tgt.Id = src.Id) 
@@ -208,9 +208,9 @@ AS
 	WHEN NOT MATCHED BY TARGET THEN
 		INSERT (ApartmentId, [Path], [Name], IsRepresentative)
 		VALUES (@id, [Path], [Name], IsRepresentative)
-	WHEN NOT MATCHED BY SOURCE THEN
+	WHEN NOT MATCHED BY SOURCE AND tgt.ApartmentId = @id THEN
 		DELETE;
-
+		--AKo ide samo WHEN NOT MATCHED BY SOURCE onda briše sve zapise osim dodanih
 GO
 
 CREATE OR ALTER PROCEDURE dbo.DeleteApartment
@@ -432,6 +432,7 @@ AS
 		(@destination IS NULL OR @destination IS NOT NULL AND a.CityId = @destination)
 		AND
 		ap.DeletedAt IS NULL
+		and a.DeletedAt IS NULL
 	ORDER BY 
         CASE
             WHEN @order is null THEN a.Id

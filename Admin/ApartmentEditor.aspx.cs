@@ -147,8 +147,8 @@ namespace Admin
 
         protected void ddlTags_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var tags = GetRepeaterTags(); // TODO
-            var newTag = GetSelectedTag(); // TODO
+            var tags = GetRepeaterTags(); 
+            var newTag = GetSelectedTag(); 
             if (tags.Any(x => x.Id == newTag.Id))
                 return;
             tags.Add(newTag);
