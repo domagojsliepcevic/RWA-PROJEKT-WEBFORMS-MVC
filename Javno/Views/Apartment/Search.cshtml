@@ -2,7 +2,7 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-  
+
 }
 
 <head>
@@ -40,21 +40,21 @@
         @using (Html.BeginForm("Search", "Apartment", FormMethod.Get, new { @class = "form-horizontal" }))
         {
             <div class="form-group col">
-                @Html.LabelFor(x => x.FilterRooms,"Rooms", new { @class = "col-md-4 control-label" })
+                @Html.LabelFor(x => x.FilterRooms, "Rooms", new { @class = "col-md-4 control-label" })
                 <div class="col-md-4">
                     @Html.TextBoxFor(x => x.FilterRooms,
                             new { @class = "form-control", @type = "number" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(x => x.FilterAdults,"Adults", new { @class = "col-md-4 control-label" })
+                @Html.LabelFor(x => x.FilterAdults, "Adults", new { @class = "col-md-4 control-label" })
                 <div class="col-md-4">
                     @Html.TextBoxFor(x => x.FilterAdults,
                             new { @class = "form-control", @type = "number" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(x => x.FilterChildren,"Children", new { @class = "col-md-4 control-label" })
+                @Html.LabelFor(x => x.FilterChildren, "Children", new { @class = "col-md-4 control-label" })
                 <div class="col-md-4">
                     @Html.TextBoxFor(x => x.FilterChildren,
                             new { @class = "form-control", @type = "number" })
@@ -113,10 +113,19 @@
                 <img src="/Apartment/Picture?Path=@Model.SearchResult[i].RepresentativePicturePath" class="card-img-top" alt="Representative Picture">
                 <div class="card-body">
                     <h5 class="card-title">@Model.SearchResult[i].Name</h5>
-                    <span class="stars">@Model.SearchResult[i].StarRating</span>
-
                 </div>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div style="display: flex; flex-wrap: wrap;">
+                            @for (int j = 0; j < Model.SearchResult[i].StarRating; j++)
+
+                            {
+                                <img style="width: 10%; height:10%; margin: 0px; padding-bottom:10px;" src="~/Content/stars.png" alt="Stars">
+
+
+                            }
+                            </div>
+                    </li>
                     <li class="list-group-item">Located in @Model.SearchResult[i].CityName</li>
                     <li class="list-group-item">Distance from the beach: @Model.SearchResult[i].BeachDistance</li>
                     <li class="list-group-item">No.Rooms: @Model.SearchResult[i].TotalRooms</li>
