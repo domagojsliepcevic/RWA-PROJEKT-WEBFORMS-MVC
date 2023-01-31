@@ -459,6 +459,7 @@ AS
 		TotalRooms,
 		MaxAdults,
 		MaxChildren,
+		Price,
 		OwnerName = ao.[Name]
 	FROM 
 		dbo.Apartment a
@@ -492,4 +493,19 @@ AS
 		dbo.Apartment a
 		JOIN dbo.ApartmentPicture ap ON ap.ApartmentId = a.Id
 	WHERE a.Id = @apartmentId and a.DeletedAt is null
+GO
+
+
+
+CREATE OR ALTER PROCEDURE dbo.GetPublicApartmentRepresentetativePicture
+	@apartmentId int = null
+AS
+
+	SELECT 
+		ap.Id,
+		ap.[Name],
+		ap.[Path],
+		ap.IsRepresentative
+	FROM  ApartmentPicture ap
+	WHERE ap.ApartmentId = @apartmentId and ap.IsRepresentative = 1
 GO

@@ -374,6 +374,7 @@ namespace rwaLib.DAL
             ap.MaxAdults = row["MaxAdults"] != DBNull.Value ? (int?)Convert.ToInt32(row["MaxAdults"]) : null;
             ap.MaxChildren = row["MaxChildren"] != DBNull.Value ? (int?)Convert.ToInt32(row["MaxChildren"]) : null;
             ap.TotalRooms = row["TotalRooms"] != DBNull.Value ?(int?)Convert.ToInt32(row["TotalRooms"]) :null;
+            ap.Price = Math.Round(Convert.ToDecimal(row["Price"]),2);
           
             return ap;
         }
@@ -424,6 +425,24 @@ namespace rwaLib.DAL
                 });
             }
             return pictures;
+        }
+
+        public ApartmentPicture GetPublicApartmentRepresentetativePicture(int id)
+        {
+            var commandParameters = new List<SqlParameter>();
+            commandParameters.Add(new SqlParameter("@apartmentId", id));
+            var ds = SqlHelper.ExecuteDataset(
+            _connectionString,
+            CommandType.StoredProcedure,
+            "dbo.GetPublicApartmentRepresentetativePicture",
+            commandParameters.ToArray());
+            var row = ds.Tables[0].Rows[0];
+            var representativePicture = new ApartmentPicture();
+            representativePicture.Id = Convert.ToInt32(row["Id"]);
+            representativePicture.Path = row["Path"].ToString();
+            representativePicture.Name = row["Name"].ToString();
+            representativePicture.IsRepresentative = bool.Parse(row["IsRepresentative"].ToString());
+            return  representativePicture;
         }
     }
 }

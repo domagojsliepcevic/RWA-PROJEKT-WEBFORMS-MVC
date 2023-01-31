@@ -59,6 +59,7 @@ namespace Javno.Controllers
         public ActionResult Details(int id)
         {
             var model = _apartmentRepository.GetPublicApartment(id);
+            model.RepresentativePicture = _apartmentRepository.GetPublicApartmentRepresentetativePicture(id);
             model.Tags = _apartmentRepository.GetPublicApartmentTags(id);
             model.Pictures = _apartmentRepository.GetPublicApartmentPictures(id);
             return View(model);
