@@ -219,6 +219,10 @@ AS
 	UPDATE dbo.Apartment
 	SET DeletedAt = SYSUTCDATETIME()
 	WHERE Id = @id
+	UPDATE  dbo.ApartmentPicture
+	SET DeletedAt =SYSUTCDATETIME()
+	WHERE ApartmentPicture.ApartmentId = @id
+	
 GO
 
 CREATE OR ALTER PROCEDURE dbo.GetApartments
