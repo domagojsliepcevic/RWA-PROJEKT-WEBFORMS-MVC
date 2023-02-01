@@ -1,17 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ApartmentList.aspx.cs" Inherits="Admin.ApartmentList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div>
-        <asp:Label ID="lblStatus" runat="server" Text="Status:"></asp:Label>
-        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" DataValueField="Id" DataTextField="Name" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
-    </div>
-    <div>
-        <asp:Label ID="lblCity" runat="server" Text="Grad:"></asp:Label>
-        <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" DataValueField="Id" DataTextField="Name" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
-    </div>
-    <div>
-        <asp:Label ID="lblOrder" runat="server" Text="Sortiranje:"></asp:Label>
-        <asp:DropDownList ID="ddlOrder" runat="server" CssClass="form-control" DataValueField="Id" DataTextField="Name" OnSelectedIndexChanged="ddlOrder_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+    <div class="row p-10">
+        <div class="col-sm-4">
+            <asp:Label ID="lblStatus" runat="server" Text="Status:"></asp:Label>
+            <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" DataValueField="Id" DataTextField="Name" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+        </div>
+        <div class="col-sm-4">
+            <asp:Label ID="lblCity" runat="server" Text="Grad:"></asp:Label>
+            <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" DataValueField="Id" DataTextField="Name" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+        </div>
+        <div class="col-sm-4">
+            <asp:Label ID="lblOrder" runat="server" Text="Sortiranje:"></asp:Label>
+            <asp:DropDownList ID="ddlOrder" runat="server" CssClass="form-control" DataValueField="Id" DataTextField="Name" OnSelectedIndexChanged="ddlOrder_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+        </div>
     </div>
     <hr />
     <div>

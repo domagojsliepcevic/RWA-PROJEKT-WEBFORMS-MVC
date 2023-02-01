@@ -1,0 +1,29 @@
+﻿body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: white;
+    background-color: black;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.box {
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px #ccc;
+    padding: 20px;
+    width:500px;
+}
+
+.text-danger {
+    color: red;
+}
+
+
+input[type="password"] {
+    color: black;
+}
