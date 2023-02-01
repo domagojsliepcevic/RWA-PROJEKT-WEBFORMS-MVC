@@ -70,6 +70,7 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TagType.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewModels\ContactReservationModel.cs" />
     <Compile Include="Models\ViewModels\PublicApartment.cs" />
     <Compile Include="Models\ViewModels\TagCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

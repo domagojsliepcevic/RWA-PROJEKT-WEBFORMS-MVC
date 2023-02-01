@@ -136,7 +136,7 @@
                 </ul>
                 <div class="card-body">
                     <a href="@Url.Action("Details","Apartment", new { id = Model.SearchResult[i].Id })" class="card-link">Details</a>
-                    <a href="#" class="card-link">Contact</a>
+                    <a href="@Url.Action("Index","Apartment", new { apartmentId = Model.SearchResult[i].Id })" class="card-link">Contact</a>
                 </div>
             </div>
         </div>

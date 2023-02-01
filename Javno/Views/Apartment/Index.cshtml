@@ -1,0 +1,88 @@
+﻿@model rwaLib.Models.ViewModels.ContactReservationModel
+@using Recaptcha.Web.Mvc
+@using System.Web.Mvc.Ajax;
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string apartmentId = Request.QueryString["apartmentId"];
+}
+
+
+
+
+<form id="contact-form">
+    <div class="form-group">
+        @Html.LabelFor(x => x.FirstName)
+        @Html.TextBoxFor(x => x.FirstName, new { @id = "firstName", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.LastName)
+        @Html.TextBoxFor(x => x.LastName, new { @id = "lastName", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Email)
+        @Html.TextBoxFor(x => x.Email, new { @id = "email", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.PhoneMobile)
+        @Html.TextBoxFor(x => x.PhoneMobile, new { @id = "phoneMobile", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.NumberOfAdults)
+        @Html.TextBoxFor(x => x.NumberOfAdults, new { @id = "numberOfAdults", @class = "form-control", @type = "number" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.NumberOfChildren)
+        @Html.TextBoxFor(x => x.NumberOfChildren, new { @id = "numberOfChildren", @class = "form-control", @type = "number" })
+    </div>
+    <input type="hidden" name="apartmentId" id="apartment-id" value="@apartmentId" />
+    <div class="g-recaptcha" id="response" data-sitekey="6Lfeyi8kAAAAAOkaDgL7XrAtw9suYDhtaLF-xFfz"></div>
+    <div class="form-group">
+        <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
+    </div>
+
+    @if (!ViewData.ModelState.IsValid)
+    {<div class="alert alert-danger">
+
+            @*}*@    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            @Html.ValidationSummary()
+        </div>}
+
+</form>
+
+@section scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+            $("#contact-form").submit(function (event) {
+                event.preventDefault();
+                var ApartmentId = $("#apartment-id").val();
+                var FirstName = $("#firstName").val();
+                var LastName = $("#lastName").val();
+                var Email = $("#email").val();
+                var PhoneMobile = $("#phoneMobile").val();
+                var NumberOfAdults = $("#numberOfAdults").val();
+                var NumberOfChildren = $("#numberOfChildren").val();
+              
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Apartment/SubmitForm",
+                    data: {
+                        ApartmentId,FirstName,LastName,Email,PhoneMobile,NumberOfAdults,NumberOfChildren,
+                        recaptchaResponse: grecaptcha.getResponse()
+                    },
+                    success: function (data) {
+                        if (data.success = true) {
+                            alert("Contact form sent!");
+                        } else {
+                            // handle error response from the server
+                            alert(data.errorMessage);
+                        }
+                    }
+                });
+            });
+
+    </script>
+}

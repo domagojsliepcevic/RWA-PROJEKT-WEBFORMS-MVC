@@ -1,25 +1,135 @@
 ﻿@model rwaLib.Models.ViewModels.PublicApartment
 
+
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<head>
+    <link href="~/Content/ImageGallery.css" rel="stylesheet" />
+    <script src="~/Scripts/ImageGallery.js"></script>
+</head>
+
+<div class="container-fluid">
+    <div class="col-md-6">
+        <h2 class="text-center">@Model.Name - @Model.CityName</h2>
+        <div class="col-md-6">
+            <img src="/Apartment/Picture?Path=@Model.RepresentativePicture.Path" width="100%">
+        </div>
+        <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">@Model.CityName</li>
+                <li class="list-group-item">@Model.BeachDistance m from beach</li>
+                <li class="list-group-item">@Model.TotalRooms rooms</li>
+                <li class="list-group-item">@Model.MaxAdults adults</li>
+                @if (@Model.MaxChildren != 0)
+                {
+                    <li class="list-group-item">@Model.MaxChildren children</li>
+                }
+                else
+                {
+                    <li class="list-group-item">No room for children</li>
+                }
+                <li class="list-group-item">Owner: @Model.OwnerName</li>
+                <li class="list-group-item">Price:@string.Format("{0:0}€", @Model.Price)</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h2 class="text-center">Contact</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="review">
+                    <div class="form-group row">
+                        <label for="inputFirstName" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhoneNumber">Phone Number</label>
+                        <input type="tel" class="form-control" id="inputPhoneNumber" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputAddress" class="col-sm-4 col-form-label">Address</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="inputAddress" placeholder="Address">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputChildren" class="col-sm-4 col-form-label">Children</label>
+                        <div class="col-sm-5">
+                            <input type="number" class="form-control" id="inputChildren" placeholder="Children">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputDateFrom" class="col-sm-4 col-form-label">Date From</label>
+                        <div class="col-sm-5">
+                            <input type="datetime-local" class="form-control" id="inputDateFrom">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputDateTo" class="col-sm-4 col-form-label">Date To</label>
+                        <div class="col-sm-5">
+                            <input type="datetime-local" class="form-control" id="inputDateTo">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Reservation</button>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-6">
+                <ul class="list-group list-group-flush">
+                    @for (int i = 0; i < Model.Tags.Count / 2; i++)
+                    {
+                        <li class="list-group-item"> @Model.Tags[i].NameEng</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-6">
+                <ul class="list-group list-group-flush">
+                    @for (int i = Model.Tags.Count / 2; i < Model.Tags.Count; i++)
+                    {
+                        <li class="list-group-item"> @Model.Tags[i].NameEng</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="container-fluid">
     <div class="row">
-
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2>@Model.Name @Model.CityName</h2>
-                </div>
-                <div class="panel-body">
-                    <img src="/Apartment/Picture?Path=@Model.RepresentativePicture.Path" Width="100%">
-                </div>
-                <div class="panel-footer">@string.Format("€ {0:0.00}", @Model.Price)</div>
+        @for (int i = 0; i < Model.Pictures.Count; i++)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <figure>
+                    <a href="#" onclick="openCenteredWindow('/Apartment/Picture?Path=@Model.Pictures[i].Path'); return false;">
+                        <img src="/Apartment/Picture?Path=@Model.Pictures[i].Path" class="img-thumbnail grayscale" />
+                    </a>
+                </figure>
             </div>
-        </div>
 
+        }
     </div>
 </div>

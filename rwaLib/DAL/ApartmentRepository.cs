@@ -137,6 +137,26 @@ namespace rwaLib.DAL
 
         }
 
+        public ContactReservationModel Contact(ContactReservationModel model)
+        {
+            var commandParameters = new List<SqlParameter>();
+            commandParameters.Add(new SqlParameter("@apartmentId", model.ApartmentId));
+            commandParameters.Add(new SqlParameter("@firstName", model.FirstName));
+            commandParameters.Add(new SqlParameter("@lastName", model.LastName));
+            commandParameters.Add(new SqlParameter("@email", model.Email));
+            commandParameters.Add(new SqlParameter("@phoneMobile", model.PhoneMobile));
+            commandParameters.Add(new SqlParameter("@adults", model.NumberOfAdults));
+            commandParameters.Add(new SqlParameter("@children", model.NumberOfAdults));
+
+            SqlHelper.ExecuteNonQuery(
+            _connectionString,
+            CommandType.StoredProcedure,
+            "dbo.InsertContact",
+            commandParameters.ToArray());
+            return model;
+
+        }
+
         public Apartment GetApartment(int id)
         {
             var commandParameters = new List<SqlParameter>();
@@ -395,6 +415,7 @@ namespace rwaLib.DAL
                 {
                   
                     Name = row["Name"].ToString(),
+                    NameEng = row["NameEng"].ToString()
                    
                 });
             }

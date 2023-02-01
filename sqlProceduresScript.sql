@@ -432,6 +432,8 @@ AS
 		(@destination IS NULL OR @destination IS NOT NULL AND a.CityId = @destination)
 		AND
 		ap.DeletedAt IS NULL
+		and ap.IsRepresentative = 1
+		--u protivnom vraca za svaku sliku po jedan rezultat.
 		and a.DeletedAt IS NULL
 	ORDER BY 
         CASE
@@ -473,7 +475,8 @@ CREATE OR ALTER PROCEDURE dbo.GetPublicApartmentTags
 AS
 
 	SELECT 
-	t.[Name] 
+	t.[Name],
+	t.[NameEng]
 	FROM dbo.TaggedApartment as ta
 	inner join dbo.Apartment as a on a.Id=ta.ApartmentId
 	inner join dbo.Tag as t on t.Id=ta.TagId

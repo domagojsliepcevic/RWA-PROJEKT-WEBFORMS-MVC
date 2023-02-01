@@ -1,16 +1,15 @@
-﻿html{
+﻿
+html{
     height:fit-content;
 }
-body
-* {
+
+*  body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-
-    
+    flex-wrap: wrap;  
 }
 
 .container {
@@ -23,6 +22,7 @@ body
 ul.menu {
     display: inline-block;
     list-style-type: none;
+    padding:0;
 }
 
 li.menu_list {
